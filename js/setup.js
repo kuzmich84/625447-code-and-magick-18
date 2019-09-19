@@ -8,33 +8,27 @@ var EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
 var userDialog = document.querySelector('.setup');
 userDialog.classList.remove('hidden');
 
-var getRandomArray = function (array1, array2) {
-  var array3 = [];
-  while (array3.length < array1.length - 1) {
-    var randomIndex = Math.floor((array1.length - 1) * Math.random());
-    if (array2 === undefined) {
-      var arrayValue = array1[randomIndex];
-    } else {
-      arrayValue = array1[randomIndex] + ' ' + array2[randomIndex];
-    }
-    if (array3.indexOf(arrayValue) === -1) {
-      array3.push(arrayValue);
-    }
+var getRandomElement = function (wizardOption) {
+  var randomIndex = Math.floor((wizardOption.length - 1) * Math.random());
+  return wizardOption[randomIndex];
+};
+
+var randomSwapOrNot = function (firstName, lastName) {
+  var randomIndex = Math.floor(Math.random() * 10);
+  if (randomIndex <= 5) {
+    return firstName + ' ' + lastName;
+  } else {
+    return lastName + ' ' + firstName;
   }
-  return array3;
 };
 
 var wizards = [];
-var fullWizardNames = getRandomArray(WIZARD_NAMES, WIZARD_LAST_NAMES);
-var coatsColor = getRandomArray(COATS_COLOR);
-var eyesColor = getRandomArray(EYES_COLOR);
-
 for (var i = 0; i < 4; i++) {
   wizards[i] =
     {
-      name: fullWizardNames[i],
-      coatColor: coatsColor[i],
-      eyesColor: eyesColor[i],
+      name: randomSwapOrNot(getRandomElement(WIZARD_NAMES), getRandomElement(WIZARD_LAST_NAMES)),
+      coatColor: getRandomElement(COATS_COLOR),
+      eyesColor: getRandomElement(EYES_COLOR),
     };
 }
 
